@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { mapActions }from 'vuex';
 
 import store from './stores/Store';
 import App from './components/App.vue';

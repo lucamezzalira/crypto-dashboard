@@ -43033,7 +43033,6 @@ var currencyStore = {
                 state = _ref.state,
                 rootState = _ref.rootState;
 
-            console.log(rootState.search);
             fetch(URL + rootState.search.tmpSymbol).then(function (response) {
                 return response.json();
             }).then(function (data) {
@@ -43415,11 +43414,6 @@ var searchStore = {
             var commit = _ref.commit;
 
             commit(_MutationTypes2.default.SET_SYMBOL, evt.target.value);
-        }
-    },
-    getter: {
-        ssymbol: function ssymbol(state) {
-            return state.tmpSymbol;
         }
     }
 };
