@@ -1,10 +1,10 @@
 <template>
     <div id="formContainer">
         <form>
-            <label>Crypto currency by symbol</label>
-            <input @change="setTmpSymbol" placeholder="e.g. BTC or ETH" type="text"></input>
+            <label>Search by symbol</label>
+            <input @change="setTmpSymbol" placeholder="e.g. BTC or ETH" type="text" :value="$store.state.search.tmpSymbol"></input>
         </form>
-        <button @click="changeSymbol">GET CHART</button>
+        <button @click="searchSymbol">GET CHART</button>
     </div>
 </template>
 
@@ -17,7 +17,7 @@
     export default {
         methods: mapActions([
             Types.SET_SYMBOL,
-            Types.CHANGE_SYMBOL
+            Types.SEARCH_SYMBOL
         ])
     }
 </script>

@@ -7,11 +7,17 @@ const searchStore = {
     mutations: {
         setTmpSymbol(state, newTmpSymbol){
             state.tmpSymbol = newTmpSymbol;
+        },
+        resetSearch(state){
+            state.tmpSymbol = '';
         }
     },
     actions: {
         setTmpSymbol({commit}, evt){
             commit(Types.SET_SYMBOL, evt.target.value);
+        },
+        resetSearch({commit}){
+            commit(Types.RESET_SEARCH)
         }
     }
 }

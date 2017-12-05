@@ -1,6 +1,12 @@
 const mut = {
     CHANGE_SYMBOL: 'changeSymbol',
-    SET_SYMBOL: 'setTmpSymbol'
+    SEARCH_SYMBOL: 'searchSymbol',
+    SET_SYMBOL: 'setTmpSymbol',
+    ALL_COINS: 'saveAllCoinsData',
+    LOAD_COINS_DATA: 'loadCoinsData',
+    LOAD_COIN_DATA: 'loadCoinData',
+    RESET_SEARCH: 'resetSearch',
+    RESET_VALUE: 'resetValue'
 }
 
 export default mut;
