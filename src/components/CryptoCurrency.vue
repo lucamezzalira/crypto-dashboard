@@ -1,6 +1,6 @@
 <template>
-    <div v-if="$store.state.crypto.symbol != ''">
-        <h1>{{$store.state.crypto.currencyName}} ({{$store.state.crypto.symbol}})</h1>
+    <div id="coinDataContianer" v-if="$store.state.crypto.symbol != ''">
+        <h1>{{$store.state.crypto.currencyName}}</h1>
         <line-chart :chart-data="$store.state.crypto.chartData"></line-chart>
         <table>
             <tr>
@@ -10,12 +10,12 @@
                 <th>Highest value</th>
                 <th>Lowest value</th>
             </tr>
-            <tr v-for="data in $store.state.crypto.currencyData">
-                <td>{{formatDate(data.day)}}</td>
-                <td>{{formatValue(data.values['1a. open (USD)'])}}</td>
-                <td>{{formatValue(data.values['4a. close (USD)'])}}</td>
-                <td>{{formatValue(data.values['2a. high (USD)'])}}</td>
-                <td>{{formatValue(data.values['3a. low (USD)'])}}</td>
+            <tr v-for="data in reversedData">
+                <td>{{formatDate(data.time)}}</td>
+                <td>{{formatValue(data.open)}}</td>
+                <td>{{formatValue(data.close)}}</td>
+                <td>{{formatValue(data.high)}}</td>
+                <td>{{formatValue(data.low)}}</td>
             </tr>
         </table>
     </div>
@@ -25,22 +25,24 @@
 
 <script>
     import moment from 'moment-es6';
-    import { mapActions } from 'vuex';
-    import Types from '../configs/MutationTypes';
     import LineChart from './LineChart.vue';
    
    export default {
         components: {
             LineChart
         },
+        computed: {
+            reversedData(){
+                return this.$store.state.crypto.currencyData.reverse()
+            }
+        },
         methods: {
             formatValue(value){
-                return `$ ${Number(value).toFixed(2)}`;
+                return `$ ${parseFloat(Number(value).toFixed(4))}`;
             },
             formatDate(date){
-                return moment(date).format("DD MMM YY")
+                return moment.unix(date).format("DD MMM YY")
             }
         }
     }
 </script>
-
