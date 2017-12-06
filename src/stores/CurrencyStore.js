@@ -20,23 +20,18 @@ const currencyStore = {
             state.chartData = prepareChartData(data)
         },
         saveAllCoinsData(state, coinsList){
-            state.allCoins = Object.values(coinsList);
-            state.allCoins.unshift({
-                FullName: '',
-                Symbol: ''
-            })
+            state.allCoins = coinsList;
         }
     },
     actions: {
         searchSymbol({dispatch, rootState}){
             dispatch(Types.LOAD_COIN_DATA, rootState.search.tmpSymbol)
-        // -->    dispatch(Types.RESET_VALUE)
         },
         changeSymbol({dispatch}, evt){
             dispatch(Types.LOAD_COIN_DATA, evt.target.value)
             dispatch(Types.RESET_SEARCH)
         },
-        loadCoinData({commit}, coinSymbol){
+        loadCoinData({commit, state}, coinSymbol){
             const URL = `https://min-api.cryptocompare.com/data/histoday?&tsym=USD&limit=30&aggregate=1&toTs=${moment.now()}&fsym=${coinSymbol}`;
             
             fetch(URL)
@@ -44,7 +39,7 @@ const currencyStore = {
                 .then(data =>
                     commit(Types.CHANGE_SYMBOL, {
                         currencyCode: coinSymbol,
-                        currency: "",
+                        currency: state.allCoins[coinSymbol].FullName,
                         data: data.Data
                     })
                 ).catch(err => console.error(err))
@@ -62,7 +57,4 @@ const currencyStore = {
 
 export default currencyStore;
 
-//TODO: extract dropdown logic for handling the reset
-//TODO: set correct coin name
-//TODO: better CSS position on search and coins list
 //TODO: review code

@@ -1,6 +1,6 @@
 <template>
-    <div v-if="$store.state.crypto.symbol != ''">
-        <h1>{{$store.state.crypto.currencyName}} ({{$store.state.crypto.symbol}})</h1>
+    <div id="coinDataContianer" v-if="$store.state.crypto.symbol != ''">
+        <h1>{{$store.state.crypto.currencyName}}</h1>
         <line-chart :chart-data="$store.state.crypto.chartData"></line-chart>
         <table>
             <tr>
@@ -38,7 +38,7 @@
         },
         methods: {
             formatValue(value){
-                return `$ ${Number(value).toFixed(4)}`;
+                return `$ ${parseFloat(Number(value).toFixed(4))}`;
             },
             formatDate(date){
                 return moment.unix(date).format("DD MMM YY")
@@ -46,4 +46,3 @@
         }
     }
 </script>
-

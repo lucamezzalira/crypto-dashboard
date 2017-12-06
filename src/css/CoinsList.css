@@ -1,7 +1,7 @@
 #listContainer{
-    width: 45%;
+    height: 50px;
     float: left;
-    margin: 12px;
     font-size: 16px;
+    padding-top: 10px;
     color: grey;
 }
