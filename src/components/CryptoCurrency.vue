@@ -46,3 +46,7 @@
         }
     }
 </script>
+
+//TODO: add icon to selected coin
+//TODO: add candlestick chart (financial chart)
+//TODO: add volumes to the table
