@@ -4,7 +4,7 @@ import { prepareChartData } from '../utils/DataUtils';
 
 const currencyStore = {
     state: {
-        symbol: '',
+        logo: '',
         currencyName: '',
         currencyData: [],
         chartData: [],
@@ -12,11 +12,11 @@ const currencyStore = {
     },
     mutations:{
         changeSymbol(state, currencyData){
-            const {currencyCode, currency, data} = currencyData;
+            const {logo, currency, data} = currencyData;
     
             state.currencyName = currency;
             state.currencyData = data;
-            state.symbol = currencyCode;
+            state.logo = logo;
             state.chartData = prepareChartData(data)
         },
         saveAllCoinsData(state, coinsList){
@@ -38,7 +38,7 @@ const currencyStore = {
                 .then(response => response.json())
                 .then(data =>
                     commit(Types.CHANGE_SYMBOL, {
-                        currencyCode: coinSymbol,
+                        logo: `https://www.cryptocompare.com/${state.allCoins[coinSymbol].ImageUrl}`,
                         currency: state.allCoins[coinSymbol].FullName,
                         data: data.Data
                     })

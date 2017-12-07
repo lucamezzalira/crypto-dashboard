@@ -1,6 +1,9 @@
 <template>
-    <div id="coinDataContianer" v-if="$store.state.crypto.symbol != ''">
-        <h1>{{$store.state.crypto.currencyName}}</h1>
+    <div id="coinDataContianer" v-if="$store.state.crypto.currencyName != ''">
+       <div>
+            <img :src="$store.state.crypto.logo" width="50" height="50"/>
+            <h1>{{$store.state.crypto.currencyName}}</h1>
+       </div>
         <line-chart :chart-data="$store.state.crypto.chartData"></line-chart>
         <table>
             <tr>
@@ -9,13 +12,17 @@
                 <th>Close value</th>
                 <th>Highest value</th>
                 <th>Lowest value</th>
+                <th>Volume from</th>
+                <th>Volume to</th>
             </tr>
             <tr v-for="data in reversedData">
                 <td>{{formatDate(data.time)}}</td>
-                <td>{{formatValue(data.open)}}</td>
-                <td>{{formatValue(data.close)}}</td>
-                <td>{{formatValue(data.high)}}</td>
-                <td>{{formatValue(data.low)}}</td>
+                <td>$ {{formatValue(data.open)}}</td>
+                <td>$ {{formatValue(data.close)}}</td>
+                <td>$ {{formatValue(data.high)}}</td>
+                <td>$ {{formatValue(data.low)}}</td>
+                <td>{{formatValue(data.volumefrom)}}</td>
+                <td>{{formatValue(data.volumeto)}}</td>
             </tr>
         </table>
     </div>
@@ -25,6 +32,7 @@
 
 <script>
     import moment from 'moment-es6';
+    import numeral from 'numeral'
     import LineChart from './LineChart.vue';
    
    export default {
@@ -38,15 +46,14 @@
         },
         methods: {
             formatValue(value){
-                return `$ ${parseFloat(Number(value).toFixed(4))}`;
+                const num = parseFloat(Number(value).toFixed(4));
+                return numeral(num).format('0,0.00');
             },
             formatDate(date){
-                return moment.unix(date).format("DD MMM YY")
+                return moment.unix(date).format('DD MMM YY')
             }
         }
     }
 </script>
 
-//TODO: add icon to selected coin
 //TODO: add candlestick chart (financial chart)
-//TODO: add volumes to the table
