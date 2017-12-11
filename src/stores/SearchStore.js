@@ -14,7 +14,7 @@ const searchStore = {
     },
     actions: {
         setTmpSymbol({commit}, evt){
-            commit(Types.SET_SYMBOL, evt.target.value);
+            commit(Types.SET_SYMBOL, evt.target.value.toUpperCase());
         },
         resetSearch({commit}){
             commit(Types.RESET_SEARCH)

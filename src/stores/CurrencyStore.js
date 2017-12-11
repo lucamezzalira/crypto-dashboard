@@ -56,5 +56,3 @@ const currencyStore = {
 }
 
 export default currencyStore;
-
-//TODO: review code
