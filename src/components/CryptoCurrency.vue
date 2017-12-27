@@ -4,18 +4,20 @@
             <img :src="$store.state.crypto.logo" width="50" height="50"/>
             <h1>{{$store.state.crypto.currencyName}}</h1>
        </div>
-        <line-chart :chart-data="$store.state.crypto.chartData"></line-chart>
+       <candlestick 
+            :labels="$store.state.crypto.chartData.labels" 
+            :currency-history="$store.state.crypto.chartData.data"/>
         <table>
             <tr>
                 <th>Date</th>
-                <th>Open value</th>
-                <th>Close value</th>
-                <th>Highest value</th>
-                <th>Lowest value</th>
+                <th>Open</th>
+                <th>Close</th>
+                <th>Highest</th>
+                <th>Lowest</th>
                 <th>Volume from</th>
                 <th>Volume to</th>
             </tr>
-            <tr v-for="data in reversedData">
+            <tr v-for="data in reversedData" :key="data.time">
                 <td>{{formatDate(data.time)}}</td>
                 <td>$ {{formatValue(data.open)}}</td>
                 <td>$ {{formatValue(data.close)}}</td>
@@ -28,16 +30,16 @@
     </div>
 </template>
 
-<style src="../css/CryptoCurrency.css"></style>
+<style src="../css/CryptoCurrency.css"/>
 
 <script>
     import moment from 'moment-es6';
-    import numeral from 'numeral'
-    import LineChart from './LineChart.vue';
-   
+    import numeral from 'numeral';
+    import Candlestick from './CandlestickChart.vue';
+
    export default {
         components: {
-            LineChart
+           Candlestick
         },
         computed: {
             reversedData(){
@@ -55,5 +57,3 @@
         }
     }
 </script>
-
-//TODO: add candlestick chart (financial chart)
