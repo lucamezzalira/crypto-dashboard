@@ -2,7 +2,7 @@
         <div id="listContainer">
             or from the list: 
             <select @change="changeSymbol">
-                <option v-for="coin in $store.state.crypto.allCoins" :value="coin.Symbol">{{coin.FullName}}</option>
+                <option v-for="coin in $store.state.crypto.allCoins" :value="coin.Symbol" :key="coin.Symbol">{{coin.FullName}}</option>
             </select>
         </div>
         

@@ -4,9 +4,9 @@
             <img :src="$store.state.crypto.logo" width="50" height="50"/>
             <h1>{{$store.state.crypto.currencyName}}</h1>
        </div>
-       <div class="echarts">
-            <IEcharts ref="chart" :option="chartsData"></IEcharts>
-       </div>
+       <candlestick 
+            :labels="$store.state.crypto.chartData.labels" 
+            :currency-history="$store.state.crypto.chartData.data"/>
         <table>
             <tr>
                 <th>Date</th>
@@ -17,7 +17,7 @@
                 <th>Volume from</th>
                 <th>Volume to</th>
             </tr>
-            <tr v-for="data in reversedData">
+            <tr v-for="data in reversedData" :key="data.time">
                 <td>{{formatDate(data.time)}}</td>
                 <td>$ {{formatValue(data.open)}}</td>
                 <td>$ {{formatValue(data.close)}}</td>
@@ -30,57 +30,20 @@
     </div>
 </template>
 
-<style src="../css/CryptoCurrency.css"></style>
+<style src="../css/CryptoCurrency.css"/>
 
 <script>
     import moment from 'moment-es6';
-    import numeral from 'numeral'
-
-    import IEcharts from 'vue-echarts-v3/src/lite.js';
-    import 'echarts/lib/chart/candlestick';
-    import 'echarts/lib/chart/bar';
-    import 'echarts/lib/component/title';
-    import 'echarts/lib/component/tooltip';
+    import numeral from 'numeral';
+    import Candlestick from './CandlestickChart.vue';
 
    export default {
         components: {
-            IEcharts
+           Candlestick
         },
         computed: {
             reversedData(){
                 return this.$store.state.crypto.currencyData.reverse()
-            },
-            chartsData(){
-                return {
-                    animation: true,
-                    animationDuration: 1500,
-                    tooltip:{
-                        transitionDuration: .5,
-                        show: true
-                    },
-                    xAxis: {
-                        data: this.$store.state.crypto.chartData.labels,
-                    },
-                    yAxis: {
-                        scale: true
-                    },
-                    series: {
-                        type: 'candlestick',
-                        data: this.$store.state.crypto.chartData.data,
-                        itemStyle: {
-                            normal: {
-                                color0: '#ef232a',
-                                color: '#14b143',
-                                borderColor0: '#ef232a',
-                                borderColor: '#14b143'
-                            },
-                            emphasis: {
-                                color: 'white',
-                                borderColor: 'black'
-                            }
-                        }
-                    }
-                }  
             }
         },
         methods: {
@@ -90,20 +53,7 @@
             },
             formatDate(date){
                 return moment.unix(date).format('DD MMM YY')
-            },
-            resizeChart(){
-                if(this.$refs.chart)
-                    this.$refs.chart.resize();
             }
-        },
-        mounted() {
-            window.addEventListener('resize', this.resizeChart)
-        },
-        beforeDestroy() {
-            window.removeEventListener('resize', this.resizeChart)
-        },
+        }
     }
 </script>
-
-//TODO: extract chart code into component
-//TODO: render small values (more than 4 zeros)
