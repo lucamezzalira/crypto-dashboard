@@ -4,7 +4,7 @@
             <img :src="$store.state.crypto.logo" width="50" height="50"/>
             <h1>{{$store.state.crypto.currencyName}}</h1>
        </div>
-       <candlestick 
+       <candlestick  
             :labels="$store.state.crypto.chartData.labels" 
             :currency-history="$store.state.crypto.chartData.data"/>
         <table>
@@ -17,7 +17,7 @@
                 <th>Volume from</th>
                 <th>Volume to</th>
             </tr>
-            <tr v-for="data in reversedData" :key="data.time">
+            <tr v-for="data in tableCurrencyData" :key="data.time">
                 <td>{{formatDate(data.time)}}</td>
                 <td>$ {{formatValue(data.open)}}</td>
                 <td>$ {{formatValue(data.close)}}</td>
@@ -33,6 +33,7 @@
 <style src="../css/CryptoCurrency.css"/>
 
 <script>
+    import {mapGetters} from 'vuex';
     import moment from 'moment-es6';
     import numeral from 'numeral';
     import Candlestick from './CandlestickChart.vue';
@@ -41,10 +42,10 @@
         components: {
            Candlestick
         },
-        computed: {
-            reversedData(){
-                return this.$store.state.crypto.currencyData.reverse()
-            }
+        computed:{
+            ...mapGetters([
+                'tableCurrencyData'
+            ])
         },
         methods: {
             formatValue(value){

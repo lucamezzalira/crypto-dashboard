@@ -10,6 +10,11 @@ const currencyStore = {
         chartData: [],
         allCoins: []
     },
+    getters:{
+        tableCurrencyData(state){
+            return state.currencyData.reverse();
+        }
+    },
     mutations:{
         changeSymbol(state, currencyData){
             const {logo, currency, data} = currencyData;

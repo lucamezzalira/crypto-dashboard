@@ -15,9 +15,11 @@
     import Types from '../configs/MutationTypes';
 
     export default {
-        methods: mapActions([
-            Types.CHANGE_SYMBOL
-        ]),
+        methods: {
+            ...mapActions([
+                Types.CHANGE_SYMBOL
+            ])
+        },
         mounted(){
             this.$store.dispatch(Types.LOAD_COINS_DATA);
         }

@@ -15,9 +15,11 @@
     import Types from '../configs/MutationTypes';
 
     export default {
-        methods: mapActions([
-            Types.SET_SYMBOL,
-            Types.SEARCH_SYMBOL
-        ])
+        methods: {
+            ...mapActions([
+                Types.SET_SYMBOL,
+                Types.SEARCH_SYMBOL
+            ])
+        }
     }
 </script>
