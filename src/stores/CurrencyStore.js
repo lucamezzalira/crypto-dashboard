@@ -3,12 +3,11 @@ import Types from '../configs/MutationTypes';
 import { prepareChartData } from '../utils/DataUtils';
 
 const currencyStore = {
-    state: {
+    state:{
         logo: '',
         currencyName: '',
         currencyData: [],
-        chartData: [],
-        allCoins: []
+        chartData: []
     },
     getters:{
         tableCurrencyData(state){
@@ -23,40 +22,24 @@ const currencyStore = {
             state.currencyData = data;
             state.logo = logo;
             state.chartData = prepareChartData(data)
-        },
-        saveAllCoinsData(state, coinsList){
-            state.allCoins = coinsList;
         }
     },
     actions: {
         searchSymbol({dispatch, rootState}){
             dispatch(Types.LOAD_COIN_DATA, rootState.search.tmpSymbol)
         },
-        changeSymbol({dispatch}, evt){
-            dispatch(Types.LOAD_COIN_DATA, evt.target.value)
-            dispatch(Types.RESET_SEARCH)
-        },
-        loadCoinData({commit, state}, coinSymbol){
-            const URL = `https://min-api.cryptocompare.com/data/histoday?&tsym=USD&limit=30&aggregate=1&toTs=${moment.now()}&fsym=${coinSymbol}`;
+        loadCoinData({commit, rootState}, selectedCoin){
+            const URL = `https://min-api.cryptocompare.com/data/histoday?&tsym=USD&limit=30&aggregate=1&toTs=${moment.now()}&fsym=${selectedCoin.id}`;
             
             fetch(URL)
                     .then(response => response.json())
                     .then(data =>
                         commit(Types.CHANGE_SYMBOL, {
-                            logo: `https://www.cryptocompare.com/${state.allCoins[coinSymbol].ImageUrl}`,
-                            currency: state.allCoins[coinSymbol].FullName,
+                            logo: `https://www.cryptocompare.com/${selectedCoin.imageUrl}`,
+                            currency: selectedCoin.name,
                             data: data.Data
                         })
-                    ).catch(err => console.error(err))
-        },
-        loadCoinsData({commit}){
-            const URL = "https://www.cryptocompare.com/api/data/coinlist"
-
-            fetch(URL)
-                    .then(response => response.json())
-                    .then(list => commit(Types.ALL_COINS, list.Data))
-                    .catch(err => console.error(err));
-
+                   ).catch(err => console.error(err))
         }
     }
 }

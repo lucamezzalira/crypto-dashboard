@@ -1,10 +1,10 @@
 import Types from '../configs/MutationTypes';
 
 const searchStore = {
-    state: {
+    state:{
         tmpSymbol: '',
     },
-    mutations: {
+    mutations:{
         setTmpSymbol(state, newTmpSymbol){
             state.tmpSymbol = newTmpSymbol;
         },
@@ -12,7 +12,7 @@ const searchStore = {
             state.tmpSymbol = '';
         }
     },
-    actions: {
+    actions:{
         setTmpSymbol({commit}, evt){
             commit(Types.SET_SYMBOL, evt.target.value.toUpperCase());
         },

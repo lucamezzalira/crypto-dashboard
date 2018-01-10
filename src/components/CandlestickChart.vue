@@ -4,6 +4,9 @@
     </div>
 </template>
 
+<style src="../css/Candlestick.css" />
+
+
 <script>
     import IEcharts from 'vue-echarts-v3/src/lite.js';
     import 'echarts/lib/chart/candlestick';
