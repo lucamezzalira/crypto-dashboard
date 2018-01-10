@@ -1,11 +1,10 @@
 <template>
         <div id="listContainer">
             or from the list: 
-            <select @change="changeSymbol">
-                <option v-for="coin in $store.state.crypto.allCoins" :value="coin.Symbol" :key="coin.Symbol">{{coin.FullName}}</option>
+            <select @change="changeSymbol($event.target.value)">
+                <option v-for="coin in $store.state.coins.allCoins" :value="coin.Symbol" :key="coin.Symbol">{{coin.FullName}}</option>
             </select>
-        </div>
-        
+        </div>    
 </template>
 
 <style src="../css/CoinsList.css"></style>

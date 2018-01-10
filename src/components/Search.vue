@@ -4,7 +4,7 @@
             <label>Search by symbol</label>
             <input @change="setTmpSymbol" placeholder="e.g. BTC or ETH" type="text" :value="$store.state.search.tmpSymbol"></input>
         </form>
-        <button @click="searchSymbol">GET CHART</button>
+        <button @click="changeSymbol($store.state.search.tmpSymbol)">GET CHART</button>
     </div>
 </template>
 
@@ -18,7 +18,7 @@
         methods: {
             ...mapActions([
                 Types.SET_SYMBOL,
-                Types.SEARCH_SYMBOL
+                Types.CHANGE_SYMBOL
             ])
         }
     }
